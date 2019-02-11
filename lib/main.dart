@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import './ui/first_screen.dart';
+import './ui/second_screen.dart';
+import './ui/my_custom_form.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,60 +13,58 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      // home: MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        "/" : (context) => MyCustomForm(),
+        "/second" : (context) => SecondScreen(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: <Widget>[
-                Tab(
-                  icon: Icon(Icons.dashboard),
-                  text: "Dashboard",
-                ),
-                Tab(
-                  icon: Icon(Icons.aspect_ratio),
-                  text: "Camera",
-                ),
-                Tab(
-                  icon: Icon(Icons.settings),
-                  text: "Setting",
-                ),
-              ],
-            ),
-            title: Text("Tabs Demo"),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              Dashboard(),
-              Icon(Icons.aspect_ratio),
-              Icon(Icons.settings),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+
+
+// class MyHomePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: DefaultTabController(
+//         length: 3,
+//         child: Scaffold(
+//           appBar: AppBar(
+//             bottom: TabBar(
+//               tabs: <Widget>[
+//                 Tab(
+//                   icon: Icon(Icons.dashboard),
+//                   text: "Dashboard",
+//                 ),
+//                 Tab(
+//                   icon: Icon(Icons.aspect_ratio),
+//                   text: "Camera",
+//                 ),
+//                 Tab(
+//                   icon: Icon(Icons.settings),
+//                   text: "Setting",
+//                 ),
+//               ],
+//             ),
+//             title: Text("Tabs Demo"),
+//           ),
+//           body: TabBarView(
+//             children: <Widget>[
+//               Dashboard(),
+//               Icon(Icons.aspect_ratio),
+//               Icon(Icons.settings),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class Dashboard extends StatefulWidget {
   @override
@@ -91,7 +92,9 @@ class DashboardState extends State<Dashboard> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add,),
+        child: Icon(
+          Icons.add,
+        ),
         onPressed: () {
           setState(() {
             counter++;
@@ -102,8 +105,6 @@ class DashboardState extends State<Dashboard> {
     );
   }
 }
-
-
 
 // class MyHomePage extends StatelessWidget {
 //   int counter = 0;
