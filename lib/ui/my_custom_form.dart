@@ -19,7 +19,7 @@ class MyCustomFormState extends State<MyCustomForm> {
         key: _formKey,
         child: ListView(
           children: <Widget>[
-            Image.asset("resource/logo.png", height: 200),
+            Image.asset("resource/logo.png", height: 150),
             TextFormField(
               decoration: InputDecoration(
                 labelText: 'Email or Username',
