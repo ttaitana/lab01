@@ -16,10 +16,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: MyHomePage(),
-      initialRoute: '/',
+      initialRoute: '/first',
       routes: {
         "/" : (context) => MyCustomForm(),
         "/second" : (context) => SecondScreen(),
+        "/first" : (context) => FirstScreen(),
       },
     );
   }
