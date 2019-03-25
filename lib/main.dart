@@ -4,6 +4,9 @@ import './ui/second_screen.dart';
 import './ui/my_custom_form.dart';
 import './ui/listData.dart';
 import './ui/todoScreen.dart';
+import './ui/login_screen.dart';
+import './ui/register_screen.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -15,16 +18,18 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       // home: MyHomePage(),
-      initialRoute: '/todo',
+      initialRoute: '/login',
       routes: {
         "/" : (context) => MyCustomForm(),
         "/second" : (context) => SecondScreen(),
         "/first" : (context) => FirstScreen(),
         "/data" : (context) => loadData(),
         "/todo" : (context) => todoScreen(),
+        "/login" : (context) => LoginScreen(),
+        "/register" : (context) => RegisterScreen(),
       },
     );
   }
