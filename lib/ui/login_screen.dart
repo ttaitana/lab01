@@ -12,6 +12,10 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -25,6 +29,7 @@ class LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 decoration: InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
+                controller: emailController,
                 validator: (value) {
                   if (value.isEmpty) return "Email is required";
                 },
@@ -32,7 +37,8 @@ class LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 decoration: InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                 validator: (value) {
+                controller: passwordController,
+                validator: (value) {
                   if (value.isEmpty) return "Password is required";
                 },
               ),
@@ -43,17 +49,25 @@ class LoginScreenState extends State<LoginScreen> {
                     child: RaisedButton(
                       child: Text("Sign in"),
                       onPressed: () {
-                        auth.signInWithEmailAndPassword(
-                          email: "x@x.com", password: "xxxxxxxx"
-                          // email: "wannowo@gmail.com", password: "12345678"
-                        ).then((FirebaseUser user){
-                          if(user.isEmailVerified){
-                            print('to home page');
-                            Navigator.pushNamed(context, '/data');
-                          }else{
-                            print('Please check your email to vertify account');
-                          }
-                        });
+                        if (_formkey.currentState.validate()) {
+                          auth
+                              .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text
+                                  // email: "wannowo@gmail.com", password: "12345678"
+                                  )
+                              .then((FirebaseUser user) {
+                            if (user.isEmailVerified) {
+                              print('to home page');
+                              Navigator.pushNamed(context, '/data');
+                            } else {
+                              print(
+                                  'Please check your email to vertify account');
+                            }
+                          });
+                        } else {
+                          print("Error");
+                        }
                       },
                     ),
                   ),

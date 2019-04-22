@@ -6,36 +6,94 @@ import './ui/listData.dart';
 import './ui/todoScreen.dart';
 import './ui/login_screen.dart';
 import './ui/register_screen.dart';
+import './ui/book_scrren.dart';
+import './ui/listBook.dart';
+import './ui/googleMap.dart';
 
+import './ui/tryBlock.dart';
+import './ui/counter_event.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  final CounterBloc _counterBloc = CounterBloc();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+        title: 'Counter demo',
+        home: BlocProvider(bloc: _counterBloc, child: CounterPage()));
+  }
+}
+
+class CounterPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    CounterBloc _bloc = BlocProvider.of<CounterBloc>(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Counter'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.remove_circle),
+            onPressed: () {
+              _bloc.dispatch(CounterEvent.decrement);
+            },
+          )
+        ],
       ),
-      // home: MyHomePage(),
-      initialRoute: '/login',
-      routes: {
-        "/" : (context) => MyCustomForm(),
-        "/second" : (context) => SecondScreen(),
-        "/first" : (context) => FirstScreen(),
-        "/data" : (context) => loadData(),
-        "/todo" : (context) => todoScreen(),
-        "/login" : (context) => LoginScreen(),
-        "/register" : (context) => RegisterScreen(),
-      },
+      body: BlocBuilder(
+        bloc: _bloc,
+        builder: (BuildContext context, int state) {
+          return Center(
+            child: Text(' $state '),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          _bloc.dispatch(CounterEvent.increment);
+        },
+      ),
     );
   }
 }
 
-
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData(
+//         primarySwatch: Colors.purple,
+//       ),
+//       // home: MyHomePage(),
+//       initialRoute: '/gmap',
+//       routes: {
+//         "/" : (context) => MyCustomForm(),
+//         "/second" : (context) => SecondScreen(),
+//         "/first" : (context) => FirstScreen(),
+//         "/data" : (context) => loadData(),
+//         "/todo" : (context) => todoScreen(),
+//         "/login" : (context) => LoginScreen(),
+//         "/register" : (context) => RegisterScreen(),
+//         "/bookSc" : (context) => bookScreen(),
+//         // "/listBook" : (context) => ListBook(),
+//         "/gmap" : (context) => GGMap()
+//       },
+//     );
+//   }
+// }
 
 // class MyHomePage extends StatelessWidget {
 //   @override
